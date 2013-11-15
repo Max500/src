@@ -24,45 +24,58 @@ class Pion:
 
     def deplacementValide(self,pos_dep,pos_arr,plateau):
         '''La fonction permet de d'afficher les déplacements possibles d'un pion'''
-        self.lp = [] #Car on a besoin d'une liste
+        self.lp = [] #Car on a besoin d'une liste de coup possible
         pos_dep=self.pos
         pieceArr=plateau.getpiece(pos_arr[0],pos_arr[1])
         if pieceArr!=None and pieceArr.color==self.color:
             return False
-        #Pour le premier coup
-        elif color==noir and y==6:
-            self.lp.append([0,1]) #On ajoute 1 à la valeur verticale (y)
-            self.lp.append([0,2]) #On ajoute 2 à la valeur verticale (y)      
-        elif color==blanc and y==1:
-            self.lp.append([0,-1]) #On enlève -1 à la valeur verticale (y)
-            self.lp.append([0,-2]) #On enlève -2 à la valeur verticale (y)
-        #Pour tout autre coup, on ajoute la case d'après(+1 en y)
-        else:
-            self.lp.append([0,y+1])
-        
-        #Pour les déplacements en diagonale pour manger d'autre pion
-        if pieceArr!=None and pieceArr.color!=self.color:
-        return self.lp #On retourne cette liste de coordonée possible
-        
-        
-        
-            for i in range (depart,arrivee):
+        elif pos_dep and pos_arr in plateau:
+            
+            #Pour interdire les déplacements de cote et vers l'arriere
+            if 'blanc' in self.colour and pos_arr[0] < pos_dep[0]:
+                return False
+            elif 'noir' in self.colour and pos_arr[0] > pos_dep[0]:
+                return False
+            elif pos_dep[0] == pos_arr[0]:
+                return False
+            #Pour les déplacements en diagonale immédiate pour manger d'autres pieces
+            elif pos_arr in plateau:
+                if abs(pos_arr[1]-pos_dep[1]) == abs(pos_arr[0]-pos_dep[0]) == 1:
+                    return True
+                #Manière non testé
+                #elif self.pos + (1,1) != self.color:
+                    #pos_arr == self.pos + (1,1)
+                    #self.lp.append(pos_arr)
+                    #return True
+                #elif self.pos + (-1,1)!=self.color:
+                    #pos_arr == self.pos + (-1,1)
+                    #self.lp.append(pos_arr)
+                    #return True
+            #Pour tout autre coup, on ajoute la case d'après(+1 en y)
+            else:
+                if pos_dep[1] == pos_arr[1]:
+                #Deplacement normal d'une case
+                    if abs(pos_arr[0]-pos_dep[0]) == 1:
+                        return True
+                    #Regle du premier deplacement, mouvement de deux cases permis
+                    elif 'noir' in self.color and pos[1]==6:
+                        self.lp.append([0,self.pos[1]+1]) or self.lp.append([0,self.pos[1]+2]) #On ajoute 1 ou 2à la valeur verticale (y)
+                        return True
+                    elif 'blanc' in self.color and pos[1]==1:
+                        self.lp.append([0,self.pos[1]-1]) or self.lp.append([0,self.pos[1]-2]) #On enlève 1 ou 2à la valeur verticale (y)
+                        return True
+                        if abs(pos_arr[0]-pos_dep[0]) == 2:
+                            return True
+            #Le pion ne peut pas passer par dessus les autres pieces
+            for i in range (pos_dep[0],pos_arr[0]):
                 if plateau.getPiece(pos_dep[0],i) != None:
                 plateau.getPiece(pos_dep[0],i).color == self.color:
                     return False
-        #Pour les autres coups
-        if
-        
-        
-        
-            for i in range (depart,arrivee):
-                if plateau.getPiece(pos_dep[0],i) != None:
-                plateau.getPiece(pos_dep[0],i).color == self.color:
-                    return False
-        
-        
-        
-        else: #On a essaye un autre mouvement que d'avancer de un, de deux au premier coup ou bien de manger en diagonale
-            return False
-        
+    
+    def promotionpion(self, plateau, target):
+        prom = 'vide'
+        while prom.lower() not in ['Ca','F', 'T', 'Re']:
+            prom = \
+            raw_input("Vous pouvez promouvoir votre pion en:\n[Ca]valier [Re]ine [T]our [F]ou  : ")
+        plateau[target].promouvoir(prom)
         
