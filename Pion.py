@@ -15,7 +15,7 @@ class Pion:
         self.pos = (x,y)
         self.color = couleur
         
-    def deplacer(self,n_x,n_y,plateau):
+    def deplacer(self,nouvPos,plateau):
         if self.deplacementValide(nouvPos,plateau):
             self.pos = nouvPos
         #else on ne change rien : on retourne la position courante
@@ -42,15 +42,6 @@ class Pion:
             elif pos_arr in plateau:
                 if abs(pos_arr[1]-pos_dep[1]) == abs(pos_arr[0]-pos_dep[0]) == 1:
                     return True
-                #Manière non testé
-                #elif self.pos + (1,1) != self.color:
-                    #pos_arr == self.pos + (1,1)
-                    #self.lp.append(pos_arr)
-                    #return True
-                #elif self.pos + (-1,1)!=self.color:
-                    #pos_arr == self.pos + (-1,1)
-                    #self.lp.append(pos_arr)
-                    #return True
             #Pour tout autre coup, on ajoute la case d'après(+1 en y)
             else:
                 if pos_dep[1] == pos_arr[1]:
@@ -59,11 +50,9 @@ class Pion:
                         return True
                     #Regle du premier deplacement, mouvement de deux cases permis
                     elif 'noir' in self.color and pos[1]==6:
-                        self.lp.append([0,self.pos[1]+1]) or self.lp.append([0,self.pos[1]+2]) #On ajoute 1 ou 2à la valeur verticale (y)
-                        return True
+                        if abs(pos_arr[0]-pos_dep[0]) == 2: #On permet l'ajout de 1 ou 2 à la valeur verticale (y)
+                            return True
                     elif 'blanc' in self.color and pos[1]==1:
-                        self.lp.append([0,self.pos[1]-1]) or self.lp.append([0,self.pos[1]-2]) #On enlève 1 ou 2à la valeur verticale (y)
-                        return True
                         if abs(pos_arr[0]-pos_dep[0]) == 2:
                             return True
             #Le pion ne peut pas passer par dessus les autres pieces
