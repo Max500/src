@@ -67,9 +67,14 @@ class Pion:
     def dame(self, pos_dep, pos_arr):
         if self.tour(pos_dep, pos_arr) or self.fou(pos_dep, pos_arr):
             return True
-        
+    
+    def pos_roi(self, plateau):
+        for i in self.getpieces(plateau):
+            if plateau[i].piecenom is '♚' or '♔' :
+                return i   
     def en_echec(self, plateau):
         pos_roi = self.pos_roi(plateau)
         for ennemi in self.adversaire.getpiece(plateau):
             if self.adversaire.deplacer(plateau, ennemi, pos_roi):
                 return True
+    
