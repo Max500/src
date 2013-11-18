@@ -1,28 +1,6 @@
 #!/usr/bin/env python
 import os,sys,random
-# Chessmastah, started Jan 2012 by Svein Arne Roed
-#
-# Available at https://sites.google.com/site/marsarsite/files
-#
-# Contact: svein+roed 'a+t' Gmail
-#
-# Version 0.5 hereby released :
-#
-# Castling
-# En passant
-# Choice between Knight and Queen when promoting a Pawn
-# Game now ends in a draw if:
-# * only kings are left
-# * no possible moves (and isn't in check)
-# * 50 consecutive moves without movement of a Pawn or a capture
-# Various fixes and cleanup, thanks to cProfile - more efficient code
-# Play against (random) computer
-#
-# "AI" not rewritten to classes yet, so computer is simply picking
-# a random move.
-#
-# Thanks to python-forum.org's users Akavall and Micseydel
-# for constructive feedback.
+
 class joueur(object):
     allsquares = [(x, y) for x in range(8) for y in range(8)]
     dullmoves = 0
@@ -436,12 +414,9 @@ class Game(object):
 def newgame():
     os.system('clear')
     print """
-      Welcome to Chessmastah, the fantastic console chess environment.
       Please type in the nom of the contestants.
       If you want to play against the computer, leave one nom blank
       and press [Enter].
-      Or if you fancy, leave both noms blank and watch the computer
-      duke it out with itself.
       """
     joueura, joueurb = getjoueurs()
     joueura.set_adversaire(joueurb)
