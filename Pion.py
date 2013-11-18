@@ -6,7 +6,6 @@ Created on 2013-11-08
 
 @author: maximeblouin
 '''
-from chess import plateau
 
 class Pion:
     '''Le pion se déplace vers l'avant d'une seule case à la fois, à l'exception du premier coup où il peut se deplacer de deux cases vers l'avant. Ce pion mange les autres pièces en diagonale directe vers l'avant.'''
@@ -69,3 +68,8 @@ class Pion:
         if self.tour(pos_dep, pos_arr) or self.fou(pos_dep, pos_arr):
             return True
         
+    def en_echec(self, plateau):
+        pos_roi = self.pos_roi(plateau)
+        for ennemi in self.adversaire.getpiece(plateau):
+            if self.adversaire.deplacer(plateau, ennemi, pos_roi):
+                return True
